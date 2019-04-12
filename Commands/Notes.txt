@@ -1,0 +1,59 @@
+CD "C:\Projects\RAS_Operations"
+Import-Module .\commands\RAS_MBI.psm1 -Force
+Import-Module .\commands\Utilities.psm1 -Force
+Import-Module .\commands\Extract-IDs_module.psm1 -Force
+
+
+$base = "C:\Projects\RAS_Operations\"
+$carrier = "CVS_Caremark"
+$filename = "GetInsured_20190409"
+$Ext = ".txt"
+
+
+----------------------------------------------------------------------------
+
+Export-MappedFile -Carrier $carrier `
+-Path ($base + $carrier + "\Original\" + $Filename + $Ext) `
+-Destination ($base + $carrier + "\Mapped\" + $Filename + "_Mapped" + $Ext ) 
+
+
+-----------------------------------------------------------------------------------
+$FilenameMBI = "Humana_04112019.csv"
+Import-csv ($base + $carrier + "\MBI_Updates\"+ $FilenameMBI)| Add-MbiMapping 
+
+Add-MbiMapping -MBI 4FQ3QP1FR13 -SSN 259966534
+Add-MbiMapping -MBI 3AK1AM5KU01 -SSN 042468216
+Add-MbiMapping -MBI 5NM0W21FT32 -SSN 253922027
+
+---------------------------------------------------------------------------------------------------
+
+$Pattern = "MEBNRLPK"
+$carrier = "Aetna"
+
+Select-String -Path ($base + $carrier + "\Original\*")  -Pattern $Pattern |	set-content ($base + "output.txt")
+Start-Process notepad++ ($base + "output.txt")
+
+
+--------------------------------------------------------------------------------------------------------------
+$base  = "C:\Projects\RAS_Operations\"
+$Carriers = "Aetna", "BCBS", "Cigna", "Coventry", "CVS_Caremark", "Humana", "UHC_AARP"
+$Subs= "Altered", "Original", "Mapped", "MBI_Updates"
+
+Foreach ($carrier in $Carriers) {
+    GCI -Path ($base + $carrier + "\Original\") |Select fullname | add-Content ($base +"Files.txt")
+	}
+	
+Foreach ($carrier in $Carriers) {		
+		Get-ChildItem -Path ($base + $carrier + "\Original\") | % {Rename-Item $_.FullName -NewName ([string]$_.Name).ToUpper()};
+		}
+
+Foreach ($carrier in $Carriers) {
+    New-Item -Path ($base + $carrier) -Type Directory
+            Foreach ($sub in $subs){
+                New-Item -Path ($base + $carrier + "\" + $sub) -Type Directory
+                }}
+----------------------------------------------------------------------------
+
+
+
+Get-APRID -Carrier "Humana" -InFile "HUMANAPREMIUM*" -OutFile "HUMANAPREMIUM_Baker_JR" -Del "," -Col "3" -EXT ".csv"
