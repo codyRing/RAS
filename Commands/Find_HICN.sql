@@ -11,12 +11,7 @@ a.Identifier,a.MemberID,a.lastname,a.firstname
    FROM (
 		SELECT  row_number() over (partition by memberid order by coverageperiodstart desc) as indx
 		,*
-		--FROM [RAS_APR_Reconciliation].[dbo].Aetna_pdp
-		--FROM [RAS_APR_Reconciliation].[dbo].CVS
-		--FROM [RAS_APR_Reconciliation].[dbo].Coventry
-		--FROM [RAS_APR_Reconciliation].[dbo].Cigna_medigap
-		--FROM [RAS_APR_Reconciliation].[dbo].UHC 
-		--FROM [RAS_APR_Reconciliation].[dbo].Humana
+		 FROM [RAS_APR_Reconciliation].[dbo].Aetna 
 		where CoveragePeriodStart >= @mindate
 		) A
 where 
@@ -28,7 +23,7 @@ where
  --select * From dbo.Research_ID
 
 
----Get details from existing RAS_APR_RECORDS that have been sent previously
+---Get details from exisiting RAS_APR_RECORDS that have been sent previously
 ;with APR as(
 
 	select 
@@ -42,7 +37,7 @@ where
 		cross apply
 		(
 		select top 1 hicn,first_name,last_name,File_date,Holder_AID
-			from dbo.RAS_APR_Records
+			from dbo.RAS_MemberPremiumPayments
 				where 
 					Carrier_Member_id = t.memberid and
 					last_name = t.lastname and
@@ -76,27 +71,69 @@ select
 	from APR
 		 left join MMA
 			on	APR.identifier =MMA.identifier and
+		
 				APR.Holder_AID = mma.AID
 				
 
 
 
----View Prior APR records from Carrier DI
+----------------^this still requires a prior APR record^-------------------				
+				
+				
+
+
+-----Looking at address, maybe add to research ID-----You should switch HICN finding to With Prior APR record and Without----------
+
+Select
+Row_number() over(partition by r.identifier order by r.lastname) as indx,
+carrier.Identifier,
+carrier.FirstName,
+carrier.LastName,
+carrier.Address
+From dbo.Aetna carrier
+	join dbo.Research_ID r
+		on r.memberid = carrier.MemberID
+	where carrier.LastName like 'martin'
+
 select 
-Row_number () over(partition by x.identifier order by r.coverage_Start_date desc),
-x.*,
-r.Input_status,
-r.Data_status,
-r.Reimbursement_status,
-r.Coverage_Start_date,
-r.Product_type
-FROM	(
-		select 
-		--Row_Number() over( order by carrier_member_id,coverage_Start_date desc) AS INDX
-		*
-		from dbo.RAS_APR_Records
-		where Reimbursement_status not in ('Non-Participating Employer')
-		) R
-	join dbo.research_id x
-		on r.carrier_member_Id = x.memberid 
-	order by r.Reimbursement_status
+Row_number() over(partition by r.identifier order by r.lastname) as indx,
+r.Identifier,
+ssn,
+First_Name,
+Last_Name,
+Address_1,
+State,
+zip,
+Concat('Add-MbiMapping -MBI ',r.identifier,' -SSN ',m.ssn)
+
+from dbo.MMAMembers m
+	join dbo.Research_ID r
+		on m.First_Name = r.firstname and
+		m.Last_Name = r.lastname
+
+
+
+
+
+---View Prior APR records from Carrier ID
+--select 
+--Row_number () over(partition by x.identifier order by r.coverage_Start_date desc),
+--'prior APR records',
+--x.Identifier,
+--r.Input_status,
+--r.Data_status,
+--r.Reimbursement_status,
+--r.Coverage_Start_date,
+--r.Product_type
+--FROM	(
+--		select 
+--		--Row_Number() over( order by carrier_member_id,coverage_Start_date desc) AS INDX
+--		*
+--		from dbo.RAS_MemberPremiumPayments
+--		where Reimbursement_status not in ('Non-Participating Employer')
+--		) R
+--	join dbo.research_id x
+--		on r.carrier_member_Id = x.memberid 
+--	order by r.Reimbursement_status,Input_status
+
+

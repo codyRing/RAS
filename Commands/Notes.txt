@@ -5,9 +5,9 @@ Import-Module .\commands\Extract-IDs_module.psm1 -Force
 
 
 $base = "C:\Projects\RAS_Operations\"
-$carrier = "CVS_Caremark"
-$filename = "GetInsured_20190409"
-$Ext = ".txt"
+$carrier = ""
+$filename = ""
+$Ext = ""
 
 
 ----------------------------------------------------------------------------
@@ -17,18 +17,26 @@ Export-MappedFile -Carrier $carrier `
 -Destination ($base + $carrier + "\Mapped\" + $Filename + "_Mapped" + $Ext ) 
 
 
+Original
+Mapped
+Altered
+
+
+Get-Content -Path ($base + $carrier + "\altered_Files\" + $Filename + $Ext) `
+| Sort-Object | Set-Content ($base + $carrier + "\altered_Files\" + $Filename + "_sorted" + $Ext)
+
 -----------------------------------------------------------------------------------
-$FilenameMBI = "Humana_04112019.csv"
+$FilenameMBI = ""
 Import-csv ($base + $carrier + "\MBI_Updates\"+ $FilenameMBI)| Add-MbiMapping 
 
-Add-MbiMapping -MBI 4FQ3QP1FR13 -SSN 259966534
-Add-MbiMapping -MBI 3AK1AM5KU01 -SSN 042468216
-Add-MbiMapping -MBI 5NM0W21FT32 -SSN 253922027
+Add-MbiMapping -MBI  -SSN  -HCN
+Set-MbiMapping -MBI  -SSN  -HCN
+
 
 ---------------------------------------------------------------------------------------------------
 
-$Pattern = "MEBNRLPK"
-$carrier = "Aetna"
+$Pattern = ""
+$carrier = ""
 
 Select-String -Path ($base + $carrier + "\Original\*")  -Pattern $Pattern |	set-content ($base + "output.txt")
 Start-Process notepad++ ($base + "output.txt")
@@ -53,7 +61,17 @@ Foreach ($carrier in $Carriers) {
                 New-Item -Path ($base + $carrier + "\" + $sub) -Type Directory
                 }}
 ----------------------------------------------------------------------------
+Aetna Carrier Member ID
+Get-APRID -Carrier "Aetna" -InFile "BUGTI4BF_45_1_AETNA_GI_2019*" -OutFile "BUGTI4BF_45_1_AETNA_Missed" -Del "`t" -Col "2" -EXT ".txt"
+
+Cigna Memberid
+Get-APRID -Carrier "Cigna" -InFile "MS_HRA_BUCK_20190417*" -OutFile "MS_HRA_BUCK_20190417_User" -Del "`t" -Col "2" -EXT ".txt"
+
+Cigna Coverage Start
+Get-APRID -Carrier "Cigna" -InFile "MS_HRA_BUCK_20190417_User*" -OutFile "MS_HRA_BUCK_20190417_New" -Del "`t" -Col "5" -EXT ".txt"
+
+CVS Memberid
+Get-APRID -Carrier "CVS_Caremark" -InFile "*2019*" -OutFile "CVS_Missed_2019" -Del "`t" -Col "2" -EXT ".txt"
 
 
 
-Get-APRID -Carrier "Humana" -InFile "HUMANAPREMIUM*" -OutFile "HUMANAPREMIUM_Baker_JR" -Del "," -Col "3" -EXT ".csv"

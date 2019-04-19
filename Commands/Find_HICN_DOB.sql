@@ -1,5 +1,5 @@
 use RAS_APR_Reconciliation
----------------------------------------------With DOB---------------------------------
+---------------------------------------------With DOB----------------
 Declare @mindate date = '1/1/18'
 
 --Step one get APR File Identifiers that appear to be MBI's
@@ -12,12 +12,13 @@ a.Identifier,a.MemberID,a.lastname,a.firstname,Date_Of_Birth
 		SELECT  row_number() over (partition by memberid order by coverageperiodstart desc) as indx
 		,*
 		 --FROM [RAS_APR_Reconciliation].[dbo].Cigna_medigap
-		 --FROM [RAS_APR_Reconciliation].[dbo].CVS 
+		 FROM [RAS_APR_Reconciliation].[dbo].CVS -----Does Have DOB
 		 --FROM [RAS_APR_Reconciliation].[dbo].Coventry
-		 --FROM [RAS_APR_Reconciliation].[dbo].Cigna_medigap
-		 --FROM [RAS_APR_Reconciliation].[dbo].UHC 
+		--FROM [RAS_APR_Reconciliation].[dbo].Cigna_medigap
+		 --FROM [RAS_APR_Reconciliation].[dbo].UHC ------PDP file does not have DOB
 		 --FROM [RAS_APR_Reconciliation].[dbo].Humana
 		where CoveragePeriodStart >= @mindate
+		--and Filename like '%missed%'
 		) A
 where 
    len(a.Identifier)>= 11 
@@ -31,7 +32,7 @@ where
 	t.identifier,
 	r.HICN,
 	r.First_Name,r.Last_Name
-	from dbo.ras_apr_Records r
+	from dbo.RAS_MemberPremiumPayments r
 		join dbo.research_id t
 			on r.Carrier_Member_id = t.memberid
 	where r.HICN not like ''
@@ -59,7 +60,7 @@ b as(
 select 
 	Row_number() over(partition by a.Identifier order by a.last_name),
 	'Carrier ID and HICN/SSN/name/dob Match',
-	a.First_Name,a.Last_Name,
+	a.First_Name,a.Last_Name,B.AID,
 	a.Identifier as MBI,
 	b.SSN,
 	a.hicn
@@ -74,11 +75,11 @@ select
 
 	---Just look at ssn
 		select 
-		'name and dob',
-		row_number() over(partition by r.identifier order by m.ssn) as sort,
+		'Name and DOB',
+		Row_number() over(partition by r.identifier order by m.ssn) as sort,
 		r.firstname,
 		r.lastname,
-		-m.date_of_birth, r.date_of_birth,
+		m.Date_Of_Birth, r.Date_Of_Birth,
 		r.identifier,				
 		m.SSN,
 		null as hicn
