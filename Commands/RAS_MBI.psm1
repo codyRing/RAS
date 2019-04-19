@@ -815,8 +815,11 @@ Get-ChildItem ($base + $carrier + "\original\" + $InFile  + $Ext) | % {
 				$Row = $_
 				        write-verbose $row
 						$Id = $Row.ToString().Split($Del )[$Col]
-						If ($ValidIds -contains $Id) {
-							$Row | Add-Content ($base + $carrier + "\Altered\" + $OutFile + $Ext)
+                        $TrimmedID = $Id.Trim()
+						If ($ValidIds -contains $TrimmedID) {
+                        $csv_file = ($base + $carrier + "\Altered\" + $OutFile + $Ext)
+                        $RowFinal = $Row + [Environment]::NewLine
+                        [System.IO.File]::AppendAllTExt($csv_file,$RowFinal )
         }
     }
 }}
