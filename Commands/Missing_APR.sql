@@ -1,52 +1,49 @@
 use RAS_APR_Reconciliation
-Declare @carrier nvarchar(50) = 'Humana'
-Declare @productType nvarchar(50) = '%'
-Declare @coverageStartdate date = '10/1/18'
+Declare @coverageStartdate date = '1/1/19'
 Declare @coverageenddate date = '4/1/2019'
--- carrier|Product_type
--- Aetna|
--- Aetna|A
--- Aetna|Medigap
--- Aetna|Part C
--- Aetna|Part D
--- BCBS of South Carolina|Medigap
--- CIGNA|Medigap
--- CIGNA|Part D
--- Coventry|Part C
--- Coventry|Part D
--- CVS Caremark|Part D
--- Delta of MI|Dental
--- HealthPlan of Upper Ohio|Medigap
--- HealthPlan of Upper Ohio|Part C
--- Humana|Medigap
--- Humana|Part C
--- Humana|Part D
--- IBC|Medigap
--- IBC|Part C
--- MVP|Part C
--- Slica Dental|Dental
--- United Healthcare|
--- United Healthcare|Medigap
--- United Healthcare|Part C
--- United Healthcare|Part D
--- VSP Vision|Vision
 
---Truncate table dbo.research_id
---insert into dbo.Research_ID (memberid,Date_Of_Birth)
+Declare @CarrierType table(
+Carrier nvarchar(50),
+product_Type nvarchar(50))
+Insert into @CarrierType(Carrier,product_Type)values
+
+---Make sure to swap out carrier table below
+
+--('Aetna',NULL),
+--('Aetna','A')
+('Aetna','Medigap')
+--('Aetna','Part C')
+--('Aetna','Part D')
+--('BCBS of South Carolina','Medigap')
+--('CIGNA','Medigap'),
+--('CIGNA','Part D'),
+--('Coventry','Part C')
+--('Coventry','Part D')
+--('CVS Caremark','Part D')
+--('Delta of MI','Dental'),
+--('Humana','Medigap'),
+--('Humana','Part C'),
+--('Humana','Part D'),
+--('Slica Dental','Dental'),
+--('United Healthcare',NULL),
+--('United Healthcare','Medigap')
+--('United Healthcare','Part C'),
+--('United Healthcare','Part D'),
+--('VSP Vision','Vision')
+
 
 
 
 Select 
---distinct a.Carrier_Member_id,a.expected_Date
-Row_Number() over ( partition by a.carrier_member_id order by a.expected_date desc) as indx 
-,a.carrier_member_id
-,a.expected_date
-,p.Coverage_Start_date as Actual_date
-,p.Payment_ID
-,p.[Last_Name] +', '+p.[First_Name] as Name
-,p.Amount
-,p.Reimbursement_status
-,p.Product_type
+Row_Number() over ( partition by Base.carrier_member_id order by Base.expected_date desc,Reimbursement_status) as indx 
+,Base.carrier_member_id
+,Base.expected_date
+,APR.Amount
+,APR.Input_status
+,APR.Reimbursement_status
+,APR.Carrier
+,APR.Product_type
+,carrier.Filename
 
 
 	from (
@@ -55,30 +52,48 @@ Row_Number() over ( partition by a.carrier_member_id order by a.expected_date de
 			(
 			select distinct carrier_member_id 
 			FROM [RAS_APR_Reconciliation].[dbo].RAS_MemberPremiumPayments p
-			 where Carrier like @carrier
-			 and Coverage_Start_date >=@coverageStartdate
-			 and Product_type like @productType
-			 and Amount >0 
-			 and Reimbursement_status in('sent','pending')
-
+				Join @CarrierType c
+					on
+						p.Carrier = c.Carrier and
+						p.Product_type = c.product_Type
+			 where 
+				Coverage_Start_date >=@coverageStartdate and
+				Amount >0 and
+			    Reimbursement_status in('sent','pending')	
 			) users
 
 	inner join 
 			(
-			select Date as expected_Date from dbo.Date_Dimension
+			select Date as expected_Date 
+			from dbo.Date_Dimension
 			where year >= 2018 and day = 1
 			and date between @coverageStartdate and @coverageenddate
 			 ) CSD
 					on 1=1
-		) as  a
+		) as  Base
 
   left join  
-		(Select * from [dbo].RAS_MemberPremiumPayments
-		where Product_type like @productType
-		and Carrier like @carrier) p
-	on a.carrier_member_id = p.carrier_member_id and
-		a.expected_date = p.coverage_start_date
-	--where p.Coverage_Start_date is null
-	--and a.expected_Date = '3/1/2019'
-	--where a.Carrier_Member_id like 'H72218627'
+		(
+		Select p.* 
+		FROM [RAS_APR_Reconciliation].[dbo].RAS_MemberPremiumPayments p
+			Join @CarrierType c
+				on
+					p.Carrier = c.Carrier and
+					p.Product_type = c.product_Type
+		) APR
+		
+		on Base.carrier_member_id = APR.carrier_member_id and
+		Base.expected_date = APR.coverage_start_date
 
+  left join  
+		(
+		Select Carrier.* 
+		FROM dbo.Aetna Carrier
+		where CoveragePeriodStart >= @coverageStartdate
+		) Carrier
+		
+		on 
+		Base.carrier_member_id = Carrier.MemberID and
+		Base.expected_date = Carrier.CoveragePeriodStart
+
+			
