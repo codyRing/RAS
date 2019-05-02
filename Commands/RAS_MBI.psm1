@@ -347,7 +347,8 @@ Function Get-MbiMapping {
         $Results = Invoke-Tsql -ConnectionString $ConnectionString -Sql $Sql -Results
         $ResultCount = $Results.Rows.Count
         If ($ResultCount -ne 1) {
-            "Found {0} mapping(s) for MBI {1}" -f $ResultCount, $Mbi | Write-Warning
+#            "Found {0} mapping(s) for MBI {1}" -f $ResultCount, $Mbi | Write-Warning
+                $Mbi | Add-Content "C:\Projects\RAS_Operations\Commands\Need_MBI_Mapping.txt"
         }
 
         $script:LastInput_GetMbiMapping = $Mbi
