@@ -4,8 +4,12 @@ Declare @hssn table(HSSN nvarchar(50))
 insert into @hssn
 			select distinct Holderssn 
 			from dbo.MMAMembers
---------------Add Criteria to search Users------------------------			
-			where aid like ''			
+			where  First_Name like 'nick'  and Last_Name like 'KOTZALAS'  
+			--where aid like '196020'
+			--where ssn like '251048030'
+			--where rhe_exchange like 'WageWorks'
+			--where pin like 'UK3CB2FF'
+			--where Employer like '%savannah%'
 Declare @user table
 			(
 			sort int,
@@ -46,15 +50,16 @@ Select
 Row_Number() over(partition by carrier,carrier_member_id,product_type order by coverage_Start_Date desc) AS INDX,
 claim.Patient_FirstName,
 claim.Patient_LastName,
+claim.Claim_Id,
+claim.Paid_Date,
 apr.Carrier_Member_id,
 apr.Carrier,
 apr.Product_type,
 apr.Coverage_Start_date,
 apr.Amount,
-apr.Reimbursement_status,
-apr.file_date,
-claim.Claim_Id,
-claim.Paid_Date
+--apr.Reimbursement_status,
+apr.file_date
+
 
 FROM	(
 		select 
@@ -66,16 +71,17 @@ FROM	(
 		,u.holderssn
 		,u.pin
 		,u.AID
-		from dbo.RAS_APR_Records a
+		from dbo.[RAS_MemberPremiumPayments] a
 			JOIN	@user u on
 					A.Last_Name = u.Last_Name and
 					A.First_Name = u.First_Name
 		where 
-		Reimbursement_status in ('sent','pending','none')
+		Reimbursement_status in ('sent','pending')
 		and Coverage_Start_date >= '1/1/2019'
+		and Amount > 0 
 		) apr
 
-	
+	--Select claim.* from	
 	Left Join
 		(
 		Select
@@ -85,6 +91,7 @@ FROM	(
 		,u.holderssn
 		,u.pin
 		,u.AID
+		,CAST(DATEADD(month, DATEDIFF(month, 0, C.Service_Start_Date), 0) AS DATE )as 'Coverage_Month_Begin'
 		FROM [dbo].[WW_Claims] C
 			Join @user u on
 			c.Patient_LastName = u.last_name and
@@ -95,10 +102,19 @@ FROM	(
 			--apr.holderssn = claim.holderssn and
 			claim.Patient_FirstName = apr.Covered_First_name and
 			claim.Patient_LastName = apr.Covered_Last_name and
+
 			apr.Coverage_Start_date = claim.Service_Start_Date and
 			apr.Amount = claim.claim
 
 
---Select * from @user
+Select * from @user
 	
+--Select c.Patient_FirstName,c.Patient_LastName,c.Patient_Relationship,c.Service_Start_Date,c.Amount
+--		FROM [dbo].[WW_Claims] C
+--			Join @user u on
+--			c.Patient_LastName = u.last_name and
+--			c.Patient_FirstName = u.First_name
 
+
+--Delete from dbo.RAS_APR_Records 
+--where Coverage_Start_date >= '12/1/2018'
