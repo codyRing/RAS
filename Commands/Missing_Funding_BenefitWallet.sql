@@ -2,19 +2,19 @@ use RAS_APR_Reconciliation
 Declare @client Table(
 Client nvarchar(50),
 flag bit)
-insert into @client (Client,flag) values
-('Atlanta Plumbers and Steamfitters','0'),
-('Avangrid','1'),
-('DAV','0'),
-('Dayco','0'),
-('JM Family','0'),
-('Kresge','0'),
-('Noble Energy','0'),
-('Scotts','0'),
-('Xerox','0')
+insert into @client (Client) values
+--('Atlanta Plumbers and Steamfitters'),
+('Avangrid')
+--('DAV'),
+--('Dayco'),
+--('JM Family'),
+--('Kresge'),
+--('Noble Energy'),
+--('Scotts')
+--('Xerox')
 
 Declare @coverageStartdate date = '1/1/19'
-Declare @coverageenddate date = '4/30/2019'
+Declare @coverageenddate date = '6/30/2019'
 
 
 
@@ -22,15 +22,13 @@ Declare @coverageenddate date = '4/30/2019'
 
 
 Select 
-Row_Number() over ( partition by a.funding_aid order by a.expected_Date desc) as indx,
-a.Client,
-p.Aid,
-a.Funding_AID,
-a.expected_Date,
-p.Pay_Date,
---p.Funding_Amount,
-Sum(p.Funding_Amount)
---p.Record_Loaded_On
+Row_Number() over ( partition by Base.funding_aid order by Base.expected_Date desc) as indx,
+Base.Client,
+Base.Funding_AID,
+Base.expected_Date,
+--DATEADD(month, DATEDIFF(month, 0, fund.Pay_Date), 0), 
+Sum(fund.Funding_Amount),
+m.Eligible,m.SubsidyStartDate
 	from (
 
  select *  from 
@@ -40,8 +38,8 @@ Sum(p.Funding_Amount)
 				join @client c
 					on p.Client_Name = c.Client
 			 where
-				c.flag = 1 
-				and Pay_Date >=@coverageStartdate
+				Pay_Date >=@coverageStartdate
+				--and Funding_AID like '173788'
 			) users
 
 	inner join 
@@ -50,7 +48,8 @@ Sum(p.Funding_Amount)
 			where 
 			day = 1 
 			and date between @coverageStartdate and @coverageenddate
-			--and date in (
+			--and date  in (
+			-- '2019-07-01',
 			-- '2019-04-01', 
 			-- '2019-01-01', 
 			-- '2018-10-01', 
@@ -59,18 +58,22 @@ Sum(p.Funding_Amount)
 			-- '2018-01-01') --quarterly funding
 			 ) CSD
 					on 1=1
-		) as  a
+		) as  base
 
- left join  [dbo].BW_Funding p
-	on a.Funding_AID = p.Funding_AID and
-		a.expected_date = DATEADD(month, DATEDIFF(month, 0, p.Pay_Date), 0) 
+	left join  [dbo].BW_Funding fund
+		on base.Funding_AID = fund.Funding_AID and
+		base.expected_date = DATEADD(month, DATEDIFF(month, 0, fund.Pay_Date), 0) 
+	left join dbo.MMAMembers m
+		on base.Funding_AID = m.AID
+
+--where fund.benefitwallet_disposition in ('none','BW Accepted')
+
 --where 
 --	p.Pay_Date is null
-
+	--a.Funding_AID like '174024'
 Group by
-a.Client,
-p.aid,
-a.Funding_AID,
-a.expected_Date,
-p.Pay_Date
-
+base.Client,
+base.Funding_AID,
+base.expected_Date,
+m.Eligible,
+m.SubsidyStartDate
