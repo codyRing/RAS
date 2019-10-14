@@ -1,17 +1,16 @@
-use RAS_APR_Reconciliation
+  use RAS_APR_Reconciliation
 Declare @mindate date = '1/1/19'
------Make Sure To change carrier table for the correct one
------The two APR views are recent sent pending or recent not sent pending
+--Swap out carrier table
 
   select 
   Row_number() over (partition by carrier.carrierid order by CoverageStart desc) as indx
-  --carrier.indx
   ,carrier.CarrierID
   ,carrier.identifier,carrier.Identifier_Two
   ,carrier.CoverageStart
   ,carrier.amount
   ,carrier.firstname
   ,carrier.lastname
+  ,r.Carrier
   ,r.Payment_ID
   ,r.Product_type
   --,r.Coverage_Start_date
@@ -27,34 +26,39 @@ Declare @mindate date = '1/1/19'
   ,r.Input_status
   ,r.Reimbursement_status
   ,carrier.filename
-
-
-  FROM (
+  FROM 
+		(
 		SELECT  
 		row_number() over (partition by b.CarrierID order by b.CoverageStart desc) as indx,
 		b.*
-		FROM [RAS_APR_Reconciliation].[dbo].Carrier_Humana b		
-
-					left join dbo.APR_Sent x
-						on b.CarrierID = x.Carrier_Member_id
-					
-					left join dbo.APR_Not_Sent y
-						on b.CarrierID = y.Carrier_Member_id
+		FROM [RAS_APR_Reconciliation].[dbo].Carrier_UHC b
 			where 
 				CoverageStart >= @mindate and
-				amount >1 and
-				(x.Carrier_Member_id is  null and y.carrier_member_id is not  null)
-
+				amount >1 
 		) carrier
 
-  left join (
-			Select  
-				Row_number() over (partition by r.carrier_member_id order by r.Coverage_Start_date desc) as indx,
-				r.*
-				from dbo.[RAS_MemberPremiumPayments] R
-				) r
+  left join 
+		(
+		Select  
+		Row_number() over (partition by r.carrier_member_id order by r.Coverage_Start_date desc) as indx,
+		r.*
+		from dbo.[RAS_MemberPremiumPayments] R
+			) r
 		on 
 			carrier.CarrierID = r.Carrier_Member_id and
-			carrier.CoverageStart = r.Coverage_Start_date and
-			carrier.amount = r.amount
---where r.Payment_ID is  null
+			carrier.CoverageStart = r.Coverage_Start_date 
+			and round(carrier.amount,0,1) = round(r.amount,0,1)
+  
+------Toggle to limit user getting monthly 'sent' payments
+
+  --left join dbo.APR_not_Sent s
+  left join dbo.APR_Sent s
+	on carrier.CarrierID = s.Carrier_Member_id 
+
+where
+	--r.Payment_ID is null 
+	--r.Input_status like 'person not found'
+	 s.Carrier_Member_id is not null
+
+
+

@@ -1,67 +1,55 @@
-Declare @hssn table(HSSN nvarchar(50))
-
-insert into @hssn
-			select distinct Holderssn 
-			from dbo.MMAMembers
-	where aid Like ''
-
+Declare @id nvarchar(50) = '156710'
 Declare @user table
 			(
-			sort int,
 			Employer nvarchar(50),
-			AID nvarchar(50),
 			First_name nvarchar(50),
 			last_name nvarchar(50),
-			pin nvarchar(50),
-			relation_code nvarchar(50),
+			AID nvarchar(50),
+			Date_Of_Birth Date,
 			ssn nvarchar(50),
 			holderssn nvarchar(50),
-			Zip nvarchar (50),
-			Date_Of_Birth nvarchar (50),
-			age nvarchar (50),
-			SubsidyStartDate date,
-			SubsidyEndDate date,
-			EmployerSubsidyContrib nvarchar(50),
-			Employer_Subsidy_Contribution_1 nvarchar(50), 
-			Employer_Subsidy_Contribution_2 nvarchar(50), 
-			Employer_Subsidy_Contribution_3 nvarchar(50),
-			filename nvarchar(100)
+			pin nvarchar(50),
+			relation_code nvarchar(50),
+			eligible nvarchar(50),
+			Subsidy nvarchar(50),
+			subsidy_Date date						
 			)
 
-		insert into @user
-		select 
-		Row_number() over(partition by holderssn order by Relation_Code) as sort,
-		employer,aid,First_Name,Last_Name,PIN,Relation_Code,ssn,holderssn,Zip,Date_Of_Birth,
-		DATEDIFF(YY, Date_Of_Birth, getdate()) - CASE WHEN( (MONTH(Date_Of_Birth)*100 + DAY(Date_Of_Birth)) > (MONTH(getdate())*100 + DAY(getdate())) ) THEN 1 ELSE 0 END as age,
-		SubsidyStartDate,SubsidyEndDate,
-		EmployerSubsidyContrib,Employer_Subsidy_Contribution_1,Employer_Subsidy_Contribution_2,Employer_Subsidy_Contribution_3,	
-		filename
-		from dbo.MMAMembers m
-			join @hssn h
-				on m.Holderssn= h.HSSN
-	--where filename not like 'irregular%'
+Insert into @user
 
---Select * from @user
+Select 
+Employer,First_Name,Last_Name,aid,Date_Of_Birth,SSN,u.Holderssn,pin,RELATION_CODE,Eligible,EmployerSubsidyContrib,SubsidyStartDate
+	from dbo.MMAMembers u
+		Join (
+				select distinct holderssn
+				from dbo.MMAMembers
+				where (
+				Last_name Like @id or
+				ssn	Like @id or
+				Holderssn Like @id or
+				aid Like @id or
+				pin Like @id )
+			) u_two
+		on u.holderssn = u_two.holderssn
+		
+
+--select
+--'BW_Enrollment' as 'source',
+--Row_number() over(partition by e.aid order by file_Creation_Date desc)as indx,
+--u.aid,u.First_name,u.last_name,u.holderssn,e.File_Creation_Date,
+--e.ssn,
+--e.last_name,
+--e.First_Name,
+--e.Trans_Eff_Date,
+--e.Policy_Amount,
+--e.Xerox_Disposition,
+--e.BenefitWallet_Disposition
+--from dbo.BW_Enrollments e
+--	 join @user u
+--		on e.aid =u.aid
+--where u.relation_code like 'self'
 
 
-select
-'BW_Enrollment' as 'source',
-Row_number() over(partition by e.aid order by file_Creation_Date desc)as indx,
-u.aid,u.First_name,u.last_name,u.holderssn,e.File_Creation_Date,
-e.ssn,
-e.last_name,
-e.First_Name,
-e.Trans_Eff_Date,
-e.Policy_Amount,
-e.Xerox_Disposition,
-e.BenefitWallet_Disposition
-from dbo.BW_Enrollments e
-	 join @user u
-		on e.aid =u.aid
-where u.relation_code like 'self'
-
-
-------select aid,sum(funding_amount) as funding from(
 Select
 'BW_Funding' as 'source',
 Row_number () over( partition by f.aid order by pay_date desc) as indx,
@@ -71,15 +59,21 @@ f.Last_Name,
 f.First_Name,
 f.Funding_AID,
 f.Funding_Amount,
-f.Pay_Date,f.Record_Loaded_On,
+f.Pay_Date,
+CONVERT(VARCHAR(7), f.Pay_Date, 120) AS 'Pay_Month',
+f.Record_Loaded_On,
 f.Xerox_Disposition,
-f.BenefitWallet_Disposition
+f.BenefitWallet_Disposition,
+f.Filename,
+f.Batch_Id
 From dbo.bw_funding f
 	join @user u	
-		on f.Aid = u.aid	
+		--on f.Aid = u.aid
+		on f.Funding_AID = u.AID	
 where BenefitWallet_Disposition  like 'none'
---) x
---group by aid
+
+
+
 
 
 
@@ -105,19 +99,23 @@ where BenefitWallet_Disposition  like 'none'
 
 
 
--- Select
--- 'WW_Funding' as 'source',
--- Row_number () over( partition by f.pin order by pay_date desc),
--- f.pin,
--- f.Account_SSN,
--- f.Last_Name,
--- f.First_Name,
--- f.Funding_AID,
--- f.Funding_Amount,
--- f.Pay_Date,
--- f.Xerox_Disposition,
--- f.Wageworks_Disposition
--- From dbo.Ww_funding f
-	-- join @user u	
-		-- on f.pin = u.pin
+Select
+'WW_Funding' as 'source',
+Row_number () over( partition by f.pin,f.funding_aid order by pay_date desc),
+f.pin,
+f.Account_SSN,
+f.Last_Name,
+f.First_Name,
+f.Funding_AID,
+f.Funding_Amount,
+f.Pay_Date,
+ CONVERT(VARCHAR(7), f.Pay_Date, 120) as pay_month,
+f.Xerox_Disposition,
+f.Wageworks_Disposition,
+File_Creation_Date
+From dbo.Ww_funding f
+	join @user u	
+		on f.pin = u.pin
 
+
+Select * from @user

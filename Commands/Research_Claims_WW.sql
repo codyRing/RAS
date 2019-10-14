@@ -1,7 +1,7 @@
 use [RAS_APR_Reconciliation]
-declare @last nvarchar(50) = 'luxa%'
-declare @first nvarchar(50) = 'donald'
-declare @ID_Code nvarchar(50) =  ''
+declare @last nvarchar(50) = 'chapman%'
+declare @first nvarchar(50) = 'jennifer%'
+declare @ID_Code nvarchar(50) =  '2307'
 select 
 --row_number() over ( partition by ID_Code order by service_start_Date desc,claim desc)
 row_number() over ( partition by ID_Code order by paid_date desc)
@@ -21,10 +21,8 @@ row_number() over ( partition by ID_Code order by paid_date desc)
 FROM [dbo].[WW_Claims]
 where (Last_Name like @last and First_Name like @first) 
 --and ID_Code like @ID_Code
---and amount = '37.50'
---and Service_Start_Date = '1/1/2019'
---and Claim_Id not in (
---'91921694', '91533894', '90686952', '89797698', '88203283')
+--and amount = '180.97'
+--and Service_Start_Date = '4/1/2019'
 --and filename not like 'JM_Family_18.CSV'
 
 
@@ -51,15 +49,6 @@ filename
 	) a
 	where indx <=3
 
---Delete from dbo.WW_AccountActivity where isnull(id_code,'') like ''
-
-
-
-
---select paid_date, count(*) from dbo.WW_Claims
---group by Paid_Date
---order by paid_Date desc
-
 --select 
 --filename,
 --max(paid_date)
@@ -74,17 +63,5 @@ filename
 --Group by filename
 --order by Filename
 
---Select * from dbo.WW_AccountActivity
---where filename like 'SR_Nuclear.csv'
---and cast(Insert_date as date) = '2019-03-14'
---and PPT_EE_ID like '227771'
 
---		Select 
---		Row_Number() over (partition by filename,id_Code,last_name order by insert_Date desc) as indx,
---		*
---		From dbo.WW_AccountActivity
---		where PPT_EE_ID like '227771'
-		
-		
---		 Last_Name like 'Doyong' 
---		and First_Name like 'Kim') 
+
