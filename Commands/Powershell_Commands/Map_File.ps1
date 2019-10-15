@@ -16,12 +16,3 @@ Export-MappedFile -Carrier $carrier `
 #altered
 #original
 #mapped
-
-
-
-Start-Process notepad++ ($base + "commands\Need_MBI_Mapping.txt")
-
-
-#Add-MbiMapping -MBI 7QM2RC3FK06 -SSN 250781664
-
-#Get-ChildItem -Path $path | % {Rename-Item $_.FullName -NewName ([string]$_.Name).ToUpper()};

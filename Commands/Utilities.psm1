@@ -77,6 +77,7 @@ Data Source=$Server;Initial Catalog=$Database;Integrated Security=SSPI;
         [String] $ProductionServer = 'sql1.colo1.arrayhealth.com'
         [String] $StageServer = 'stagesql1.colo1.arrayhealth.com'
 	    [String] $DataServer = 'datasql1.colo1.arrayhealth.com'
+        [String] $AtlServer = 'ATL1-SQL02'
     }
 
     Process {
@@ -85,6 +86,10 @@ Data Source=$Server;Initial Catalog=$Database;Integrated Security=SSPI;
 
         if ($Database.EndsWith('production')) {
             $Server = $ProductionServer
+        }
+
+        if ($Database.EndsWith('MBI')) {
+            $Server = $AtlServer
         }
 	
 	    if ($Database.EndsWith('demo') -or $Database.EndsWith('operations') -or $Database.EndsWith('stage') -or $Database.EndsWith('uat') -or $Database.EndsWith('test')) {
@@ -417,6 +422,12 @@ Function Invoke-Tsql {
         # https://docs.microsoft.com/en-us/sql/relational-databases/scripting/load-the-smo-assemblies-in-windows-powershell
         # We're not importing SQLPS because it has way more than we need, slows things down, and messes with the environment.
         [Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.ConnectionInfo") | Out-Null
+        #[Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.ConnectionInfo, Version=12.0.0.0") | Out-Null
+        
+
+
+
+
     }
 
     Process {
