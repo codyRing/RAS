@@ -14,7 +14,7 @@ insert into @client (Client) values
 --('Xerox')
 
 Declare @coverageStartdate date = '1/1/19'
-Declare @coverageenddate date = '6/30/2019'
+Declare @coverageenddate date = '11/30/2019'
 
 
 
@@ -28,7 +28,7 @@ Base.Funding_AID,
 Base.expected_Date,
 --DATEADD(month, DATEDIFF(month, 0, fund.Pay_Date), 0), 
 Sum(fund.Funding_Amount),
-m.Eligible,m.SubsidyStartDate
+m.Eligible,m.SubsidyStartDate,m.SubsidyEndDate
 	from (
 
  select *  from 
@@ -39,7 +39,6 @@ m.Eligible,m.SubsidyStartDate
 					on p.Client_Name = c.Client
 			 where
 				Pay_Date >=@coverageStartdate
-				--and Funding_AID like '173788'
 			) users
 
 	inner join 
@@ -68,12 +67,18 @@ m.Eligible,m.SubsidyStartDate
 
 --where fund.benefitwallet_disposition in ('none','BW Accepted')
 
---where 
---	p.Pay_Date is null
-	--a.Funding_AID like '174024'
+where 
+	m.Eligible like 'yes' 
+	and fund.Pay_Date is null 
+--	and (case when base.expected_date <= m.SubsidyEndDate then 'true' end) = 'true' 
+--	and (case when base.expected_Date >= m.SubsidyStartDate then 'true' end ) = 'true'
+	--and base.expected_Date >= '6/1/2019'
+	
+
 Group by
 base.Client,
 base.Funding_AID,
 base.expected_Date,
 m.Eligible,
-m.SubsidyStartDate
+m.SubsidyStartDate,
+m.SubsidyEndDate

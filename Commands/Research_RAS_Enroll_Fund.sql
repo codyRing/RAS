@@ -1,4 +1,5 @@
-Declare @id nvarchar(50) = '156710'
+use RAS_APR_Reconciliation
+Declare @id nvarchar(50) = '174422'
 Declare @user table
 			(
 			Employer nvarchar(50),
@@ -12,13 +13,14 @@ Declare @user table
 			relation_code nvarchar(50),
 			eligible nvarchar(50),
 			Subsidy nvarchar(50),
-			subsidy_Date date						
+			SubsidyStartDate date,
+			SubsidyEndDate date				
 			)
 
 Insert into @user
 
 Select 
-Employer,First_Name,Last_Name,aid,Date_Of_Birth,SSN,u.Holderssn,pin,RELATION_CODE,Eligible,EmployerSubsidyContrib,SubsidyStartDate
+Employer,First_Name,Last_Name,aid,Date_Of_Birth,SSN,u.Holderssn,pin,RELATION_CODE,Eligible,EmployerSubsidyContrib,SubsidyStartDate,SubsidyEndDate
 	from dbo.MMAMembers u
 		Join (
 				select distinct holderssn
@@ -75,7 +77,11 @@ where BenefitWallet_Disposition  like 'none'
 
 
 
+--delete from dbo.WW_Funding
+--where Client_Name like 'clorox%'
 
+--Select distinct Client_Name from dbo.WW_Funding
+--where  Client_Name like 'clorox%'
 
 --select
 --'WW_Enrollment' as 'source',
@@ -116,6 +122,9 @@ File_Creation_Date
 From dbo.Ww_funding f
 	join @user u	
 		on f.pin = u.pin
-
+where f.Pay_Date = '1/1/2020'
 
 Select * from @user
+
+
+

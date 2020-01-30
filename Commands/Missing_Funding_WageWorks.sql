@@ -3,16 +3,16 @@ Declare @client Table(
 Client nvarchar(50))
 insert into @client (Client) values
 --('Atlanta Plumbers and Steamfitters')
-('Clorox')
---('DAV'),
---('Dayco'),
+--('Clorox')
+--('DAV')
+--('Dayco')
 --('JM Family'),
 --('Kresge'),
 --('Noble Energy'),
---('Savannah River')
+('Savannah River')
 
 Declare @coverageStartdate date = '1/1/19'
-Declare @coverageenddate date = '6/30/2019'
+Declare @coverageenddate date = '10/30/2019'
 
 
 
@@ -25,8 +25,9 @@ Base.Client,
 Base.Funding_AID,
 Base.expected_Date,
 --DATEADD(month, DATEDIFF(month, 0, fund.Pay_Date), 0), 
-Sum(fund.Funding_Amount),
-m.Eligible,m.SubsidyStartDate
+Sum(fund.Funding_Amount) as funding,
+m.Eligible,m.SubsidyStartDate,m.SubsidyEndDate,
+m.Holderssn,m.pin
 	from (
 
  select *  from 
@@ -37,8 +38,7 @@ m.Eligible,m.SubsidyStartDate
 					on p.Client_Name = c.Client
 			 where
 				 Pay_Date >=@coverageStartdate
-				and p.Funding_AID in (
-'56962', '57254', '57297', '57470', '57569', '57808', '58240', '60714')
+
 			) users
 
 	inner join 
@@ -48,6 +48,8 @@ m.Eligible,m.SubsidyStartDate
 			day = 1 
 			and date between @coverageStartdate and @coverageenddate
 			--and date in (
+			-- '2019-10-01',
+			-- '2019-07-01',
 			-- '2019-04-01', 
 			-- '2019-01-01', 
 			-- '2018-10-01', 
@@ -64,13 +66,21 @@ m.Eligible,m.SubsidyStartDate
 
 	left join dbo.MMAMembers m
 		on base.Funding_AID = m.AID
---where fund.WageWorks_Disposition in ('none','WW Accepted')
---where fund.Pay_Date is null and base.expected_Date >='5/1/2019'
+where 
+	m.Eligible like 'yes' 
+	and fund.Pay_Date is null 
+	and (case when base.expected_date <= m.SubsidyEndDate then 'true' end) = 'true' 
+	and (case when base.expected_Date >= m.SubsidyStartDate then 'true' end ) = 'true'
+
 
 Group by
 base.Client,
 base.Funding_AID,
 base.expected_Date,
 m.Eligible,
-m.SubsidyStartDate
+m.SubsidyStartDate,
+m.SubsidyEndDate,
+m.Holderssn,
+m.pin
 
+--order by SubsidyEndDate desc
