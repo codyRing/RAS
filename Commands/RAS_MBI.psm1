@@ -710,7 +710,7 @@ Function Export-MappedFile {
     [CmdletBinding()]
     Param(
 	    [parameter(Position = 0, Mandatory = $TRUE, ValueFromPipeline = $TRUE, ValueFromPipelineByPropertyName = $TRUE)]
-        [ValidateSet("Aetna", "Coventry", "CVS_Caremark", "Cigna", "Cigna_Status", "UHC_AARP", "Humana")]
+        [ValidateSet("Aetna", "Coventry", "CVS_Caremark", "Cigna", "Cigna_Status", "UHC_AARP", "Humana","Wellcare")]
 	    $Carrier,
 
 	    [parameter(Position = 1, Mandatory = $TRUE, ValueFromPipeline = $TRUE, ValueFromPipelineByPropertyName = $TRUE)]
@@ -734,6 +734,7 @@ Function Export-MappedFile {
             "Cigna_Status" = "(^D,)(\w*?)(,)";
             "UHC_AARP" = "(^D\t)(\w*?)(\t)";
             "Humana" = "(^D,)(\w*?)(,)"
+			"Wellcare" = "(^D\t)(\w*?)(\s*\t)"
         }
     }
 

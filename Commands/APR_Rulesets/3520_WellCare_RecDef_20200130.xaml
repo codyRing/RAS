@@ -1,0 +1,615 @@
+<RuleSet Description="{p1:Null}" Name="{p1:Null}" ChainingBehavior="Full" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow">
+	<RuleSet.Rules>
+		<Rule Priority="500" Description="{p1:Null}" Active="True" ReevaluationBehavior="Never" Name="Tab Delimited File Format">
+			<Rule.Condition>
+				<RuleExpressionCondition Name="{p1:Null}">
+					<RuleExpressionCondition.Expression>
+						<ns0:CodePrimitiveExpression xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodePrimitiveExpression.Value>
+								<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+							</ns0:CodePrimitiveExpression.Value>
+						</ns0:CodePrimitiveExpression>
+					</RuleExpressionCondition.Expression>
+				</RuleExpressionCondition>
+			</Rule.Condition>
+			<Rule.ThenActions>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">PremiumPaymentMapper</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="Delimited">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FileFormat" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">	</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns1:Int32>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="CreateClass">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+			</Rule.ThenActions>
+		</Rule>
+		<Rule Priority="400" Description="{p1:Null}" Active="True" ReevaluationBehavior="Never" Name="Define Fields">
+			<Rule.Condition>
+				<RuleExpressionCondition Name="{p1:Null}">
+					<RuleExpressionCondition.Expression>
+						<ns0:CodePrimitiveExpression xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodePrimitiveExpression.Value>
+								<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+							</ns0:CodePrimitiveExpression.Value>
+						</ns0:CodePrimitiveExpression>
+					</RuleExpressionCondition.Expression>
+				</RuleExpressionCondition>
+			</Rule.Condition>
+			<Rule.ThenActions>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C1</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C2</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C3</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C4</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C5</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C6</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C7</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C8</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="Decimal">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C9</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C10</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C11</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C12</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C13</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Parameters>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C14</ns1:String>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodeFieldReferenceExpression FieldName="String">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodeTypeReferenceExpression Type="MMAApps.FieldDataType" />
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+										<ns0:CodePrimitiveExpression />
+									</ns0:CodeMethodInvokeExpression.Parameters>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddField">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+			</Rule.ThenActions>
+		</Rule>
+	</RuleSet.Rules>
+</RuleSet>
